@@ -21,7 +21,7 @@ if PROJECT_DIR:
     os.chdir(PROJECT_DIR)
 
 setup(name='django-oscar',
-      version=get_version().replace(' ', '-') + '-pozytywnie_21_05_2013-multisite1',
+      version=get_version().replace(' ', '-') + '-pozytywnie_21_05_2013-multisite2',
       url='https://github.com/tangentlabs/django-oscar',
       author="David Winterbottom",
       author_email="david.winterbottom@tangentlabs.co.uk",
