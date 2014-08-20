@@ -39,7 +39,13 @@ def range_anchor(range):
         range.name)
 
 
-class ConditionalOffer(models.Model):
+class CurrentSiteActiveOfferManager(multisite.CurrentSiteManager,
+                                    ActiveOfferManager):
+    pass
+
+
+class ConditionalOffer(multisite.MultiSitesMixin, multisite.SiteFieldMixin,
+                       models.Model):
     """
     A conditional offer (eg buy 1, get 10% off)
     """
@@ -142,8 +148,8 @@ class ConditionalOffer(models.Model):
     redirect_url = ExtendedURLField(_("URL redirect (optional)"), blank=True)
     date_created = models.DateTimeField(_("Date Created"), auto_now_add=True)
 
-    objects = models.Manager()
-    active = ActiveOfferManager()
+    objects = multisite.CurrentSiteManager()
+    active = CurrentSiteActiveOfferManager()
 
     # We need to track the voucher that this offer came from (if it is a
     # voucher offer)
