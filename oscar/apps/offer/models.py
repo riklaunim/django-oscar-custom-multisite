@@ -50,9 +50,9 @@ class ConditionalOffer(multisite.MultiSitesMixin, multisite.SiteFieldMixin,
     A conditional offer (eg buy 1, get 10% off)
     """
     name = models.CharField(
-        _("Name"), max_length=128, unique=True,
+        _("Name"), max_length=128,
         help_text=_("This is displayed within the customer's basket"))
-    slug = models.SlugField(_("Slug"), max_length=128, unique=True, null=True)
+    slug = models.SlugField(_("Slug"), max_length=128, null=True)
     description = models.TextField(
         _("Description"), blank=True, null=True,
         help_text=_("This is displayed on the offer browsing page"))
@@ -159,6 +159,10 @@ class ConditionalOffer(multisite.MultiSitesMixin, multisite.SiteFieldMixin,
         ordering = ['-priority']
         verbose_name = _("Conditional offer")
         verbose_name_plural = _("Conditional offers")
+        unique_together = (
+            ('name', 'site'),
+            ('slug', 'site'),
+        )
 
         # The way offers are looked up involves the fields (offer_type, status,
         # start_datetime, end_datetime).  Ideally, you want a DB index that
