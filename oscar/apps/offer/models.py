@@ -711,7 +711,7 @@ class Range(multisite.MultiSitesMixin, multisite.SiteFieldMixin,
     """
     objects = multisite.CurrentSiteManager()
 
-    name = models.CharField(_("Name"), max_length=128, unique=True)
+    name = models.CharField(_("Name"), max_length=128)
     includes_all_products = models.BooleanField(
         _('Includes All Products'), default=False)
     included_products = models.ManyToManyField(
@@ -741,6 +741,7 @@ class Range(multisite.MultiSitesMixin, multisite.SiteFieldMixin,
     class Meta:
         verbose_name = _("Range")
         verbose_name_plural = _("Ranges")
+        unique_together = ['name', 'site']
 
     def __unicode__(self):
         return self.name
